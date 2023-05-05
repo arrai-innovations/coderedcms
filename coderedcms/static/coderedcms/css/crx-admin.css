@@ -88,3 +88,9 @@ textarea.monospace,
   font-size: 5rem;
   color: var(--w-color-text-label);
 }
+
+/* Hide the revision field.  It is set in clean. */
+input[type="hidden"][value="reusable_content"]
+  ~ section div[data-contentpath="revision"] {
+    display: none;
+}
