@@ -9,6 +9,7 @@ Field Reference
 Fields and purposes:
 
 * **Content** - Chooser for reusable content
+* **Revision** - A hidden field that stores the latest revision of the chosen reusable content
 
 .. figure:: images/reusable_content.jpeg
     :alt: The reusable content block
