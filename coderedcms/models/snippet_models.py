@@ -148,6 +148,7 @@ class Classifier(ClusterableModel):
         allow_unicode=True,
         unique=True,
         verbose_name=_("Slug"),
+        max_length=255,
     )
     name = models.CharField(
         max_length=255,
@@ -429,12 +430,17 @@ def recursive_update_revision_in_raw_data(raw_data, pk, revision_id):
         ):
             block["value"]["revision"] = revision_id
 
-        for key, value in block.items():
-            if type(value) is list:
-                recursive_update_revision_in_raw_data(value, pk, revision_id)
+        if type(block) is dict:
+            for key, value in block.items():
+                if type(value) is list:
+                    recursive_update_revision_in_raw_data(
+                        value, pk, revision_id
+                    )
 
-            elif type(value) is dict:
-                recursive_update_revision_in_raw_data([value], pk, revision_id)
+                elif type(value) is dict:
+                    recursive_update_revision_in_raw_data(
+                        [value], pk, revision_id
+                    )
 
     return raw_data
 
