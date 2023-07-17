@@ -7,8 +7,8 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0083_workflowcontenttype'),
-        ('coderedcms', '0038_alter_classifier_slug'),
+        ('wagtailcore', '0078_referenceindex'),
+        ('coderedcms', '0035_remove_googleapisettings_site_and_more'),
     ]
 
     operations = [
