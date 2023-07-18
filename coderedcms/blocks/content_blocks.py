@@ -2,6 +2,7 @@
 Content blocks are for building complex, nested HTML structures that usually
 contain sub-blocks, and may require javascript to function properly.
 """
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
@@ -336,8 +337,11 @@ class ReusableContentBlock(BaseBlock):
         # Update the revision number on save.
         revision = value["content"].latest_revision
         if revision is None:
-            revision = value["content"].revisions.latest("pk")
-        value["revision"] = revision.pk
+            try:
+                revision = value["content"].revisions.latest("pk")
+            except ObjectDoesNotExist:
+                revision = None
+        value["revision"] = None if revision is None else revision.pk
 
         return super().clean(value)
 
