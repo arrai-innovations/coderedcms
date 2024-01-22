@@ -1,5 +1,5 @@
 """
-Snippets are for content that is re-usable in nature.
+Snippets are for content that is reusable in nature.
 """
 
 from django.contrib.contenttypes.fields import GenericRelation
@@ -148,6 +148,7 @@ class Classifier(ClusterableModel):
         allow_unicode=True,
         unique=True,
         verbose_name=_("Slug"),
+        max_length=255,
     )
     name = models.CharField(
         max_length=255,
@@ -195,6 +196,7 @@ class ClassifierTerm(Orderable, models.Model):
         allow_unicode=True,
         unique=True,
         verbose_name=_("Slug"),
+        max_length=255,
     )
     name = models.CharField(
         max_length=255,
@@ -392,7 +394,7 @@ class Footer(models.Model):
 @register_snippet
 class ReusableContent(RevisionMixin, models.Model):
     """
-    Snippet for resusable content in streamfields.
+    Snippet for reusable content in streamfields.
     """
 
     class Meta:
