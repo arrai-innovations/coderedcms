@@ -22,6 +22,8 @@ from django.views.decorators.http import require_POST
 from icalendar import Calendar
 from wagtail.admin import messages
 from wagtail.models import Page, get_page_models
+from wagtail.search.backends import get_search_backend
+from wagtail.search.backends.database.mysql.mysql import MySQLSearchBackend
 from coderedcms import utils
 from coderedcms.forms import SearchForm
 from coderedcms.models import CoderedPage, LayoutSettings
@@ -61,7 +63,13 @@ def search(request):
                 model = ContentType.objects.get(
                     model=search_model
                 ).model_class()
-                results = results.type(model)
+                # Workaround for Wagtail MySQL search bug.
+                # See: https://github.com/wagtail/wagtail/issues/11273
+                backend = get_search_backend()
+                if type(backend) is MySQLSearchBackend:
+                    results = model.objects.live()
+                else:
+                    results = results.type(model)
             except ContentType.DoesNotExist:
                 # Maintain existing behavior of only returning objects if the page type is real
                 results = None
@@ -120,9 +128,16 @@ def serve_protected_file(request, path):
 def favicon(request):
     icon = LayoutSettings.for_request(request).favicon
     if icon:
-        return HttpResponsePermanentRedirect(
-            icon.get_rendition("fill-256x256|format-webp").url
-        )
+        # Try to convert to webp, otherwise pass original file format
+        # This will happen mainly if the file is an SVG
+        try:
+            return HttpResponsePermanentRedirect(
+                icon.get_rendition("fill-256x256|format-webp").url
+            )
+        except AttributeError:
+            return HttpResponsePermanentRedirect(
+                icon.get_rendition("fill-256x256").url
+            )
     raise Http404()
 
 
