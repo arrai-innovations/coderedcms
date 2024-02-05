@@ -18,6 +18,8 @@ from wagtail.admin.panels import (
 from wagtail.blocks import StreamValue
 from wagtail.models import (
     Orderable,
+    PageLogEntry,
+    ReferenceIndex,
     RevisionMixin,
 )
 from wagtail.snippets.models import register_snippet
@@ -447,7 +449,7 @@ def recursive_update_revision_in_raw_data(raw_data, pk, revision_id):
 
 
 def recursive_create_revisions_from_instance(instance, pk, revision_id):
-    for source, _reference_objects in instance.get_usage():
+    for source, _reference_objects in ReferenceIndex.get_grouped_references_to(instance):
         if hasattr(source, "specific"):
             for field in source.specific._meta.fields:
                 field_value = getattr(source.specific, field.name)
@@ -457,7 +459,7 @@ def recursive_create_revisions_from_instance(instance, pk, revision_id):
                     )
                     field_value.raw_data = raw_data
 
-            source.specific.save_revision()
+            revision = source.specific.save_revision()
 
         else:
             for field in source._meta.fields:
@@ -468,7 +470,17 @@ def recursive_create_revisions_from_instance(instance, pk, revision_id):
                     )
                     field_value.raw_data = raw_data
 
-            source.save_revision()
+            revision = source.save_revision()
+
+        PageLogEntry.objects.log_action(
+            instance=revision.content_object.specific,
+            action='wagtail.edit',
+            data={},
+            revision=revision,
+            user=revision.user,
+            timestamp=revision.created_at,
+            content_changed=True,
+        )
 
 
 @receiver(post_save)
@@ -486,6 +498,7 @@ def create_revisions_of_content_using_reusable_content(sender, **kwargs):
     recursive_create_revisions_from_instance(
         instance, instance.pk, instance.latest_revision_id
     )
+
 
 
 @register_snippet
