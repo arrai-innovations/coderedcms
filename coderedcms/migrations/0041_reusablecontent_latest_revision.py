@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0083_workflowcontenttype'),
-        ('coderedcms', '0037_coderedpage_related_classifier_term_and_more'),
+        ('coderedcms', '0040_remove_analyticssettings_ga_tracking_id'),
     ]
 
     operations = [
