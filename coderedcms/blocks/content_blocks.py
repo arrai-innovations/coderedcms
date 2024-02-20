@@ -345,6 +345,10 @@ class ReusableContentBlock(BaseBlock):
         template = "coderedcms/blocks/reusable_content_block.html"
 
     def clean(self, value):
+        # No reusable content selected.
+        if value["content"] is None:
+            return super().clean(value)
+
         # Update the revision number on save.
         if value["content"].latest_revision is None:
             # If you are selecting a reusable content that does not
