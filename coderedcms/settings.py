@@ -232,6 +232,7 @@ class _DefaultSettings:
     CRX_DISABLE_LAYOUT = False
     CRX_DISABLE_NAVBAR = False
     CRX_DISABLE_FOOTER = False
+    CRX_DISABLE_FOR_PACMS = True
 
     def __getattribute__(self, attr: str):
         # First load from Django settings.

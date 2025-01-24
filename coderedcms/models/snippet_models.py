@@ -234,7 +234,7 @@ class ClassifierTerm(Orderable, models.Model):
         return "{0} > {1}".format(self.classifier.name, self.name)
 
 
-@register_snippet
+@maybe_register_snippet(crx_settings.CRX_DISABLE_FOR_PACMS)
 class FilmStrip(ClusterableModel):
     class Meta:
         verbose_name = _("Film Strip")
@@ -508,7 +508,7 @@ def create_revisions_of_content_using_reusable_content(sender, **kwargs):
 
 
 
-@register_snippet
+@maybe_register_snippet(crx_settings.CRX_DISABLE_FOR_PACMS)
 class Accordion(ClusterableModel):
     """Class for reusable content in a collapsible block."""
 
