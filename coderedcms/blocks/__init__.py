@@ -4,6 +4,7 @@ individual files based on purpose, but provide them all as a
 single `blocks` module.
 """
 
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
 
@@ -81,11 +82,24 @@ HTML_STREAMBLOCKS = [
     ("page_preview", PagePreviewBlock()),
 ]
 
-CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS + [
-    ("accordion", AccordionBlock()),
+CONTENT_STREAMBLOCKS = HTML_STREAMBLOCKS
+
+if not settings.CRX_DISABLE_FOR_PACMS:
+    CONTENT_STREAMBLOCKS += [
+        ("accordion", AccordionBlock()),
+    ]
+
+CONTENT_STREAMBLOCKS += [
     ("card", CardBlock()),
     ("carousel", CarouselBlock()),
-    ("film_strip", FilmStripBlock()),
+]
+
+if not settings.CRX_DISABLE_FOR_PACMS:
+    CONTENT_STREAMBLOCKS += [
+        ("film_strip", FilmStripBlock()),
+    ]
+
+CONTENT_STREAMBLOCKS += [
     ("image_gallery", ImageGalleryBlock()),
     ("modal", ModalBlock(HTML_STREAMBLOCKS)),
     ("pricelist", PriceListBlock()),
