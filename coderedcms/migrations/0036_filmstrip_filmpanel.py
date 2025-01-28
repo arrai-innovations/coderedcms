@@ -14,6 +14,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.AddField(
+            model_name='reusablecontent',
+            name='latest_revision',
+            field=models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.revision', verbose_name='latest revision'),
+        ),
         migrations.CreateModel(
             name="FilmStrip",
             fields=[
