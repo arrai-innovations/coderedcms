@@ -9,15 +9,24 @@ from wagtail.images import get_image_model_string
 
 class Migration(migrations.Migration):
     dependencies = [
+        ("wagtailcore", "0094_alter_page_locale"),
         ("wagtailimages", "0025_alter_image_file_alter_rendition_file"),
         ("coderedcms", "0035_remove_googleapisettings_site_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='reusablecontent',
-            name='latest_revision',
-            field=models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.revision', verbose_name='latest revision'),
+            model_name="reusablecontent",
+            name="latest_revision",
+            field=models.ForeignKey(
+                blank=True,
+                editable=False,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailcore.revision",
+                verbose_name="latest revision",
+            ),
         ),
         migrations.CreateModel(
             name="FilmStrip",
