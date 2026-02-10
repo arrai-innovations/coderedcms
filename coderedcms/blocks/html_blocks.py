@@ -329,6 +329,9 @@ class QuoteBlock(BaseBlock):
         description = "A Quote."
         preview_value = {
             "author": "John Smith",
+            "settings": {
+                "custom_css_class": "",
+            },
             "text": "The sun rises in the east.",
         }
 
