@@ -71,12 +71,18 @@ class CardBlock(BaseBlock):
         preview_value = {
             "description": "Card Description",
             "links": [
-                {
-                    "button_title": "Button Title Tag",
-                    "url": "https://www.google.ca",
-                    "opens_in_new_window": True,
-                    "get_title": "Button Title",
-                },
+                (
+                    "Links",
+                    {
+                        "button_style": "btn-secondary",
+                        "button_title": "Button Title",
+                        "other_link": "https://www.google.ca",
+                        "settings": {
+                            "custom_css_class": "",
+                            "custom_template": "",
+                        },
+                    }
+                ),
             ],
             "settings": {
                 "custom_css_class": "",
@@ -391,7 +397,9 @@ class ReusableContentBlock(BaseBlock):
         description = "A reusable content block that can be added to any page."
         preview_value = {
             "content": {
-                "content": [],
+                "content": [
+                    mark_safe("<h1>Cats</h1><p>Cats make great pets.</p>"),
+                ],
             },
             "settings": {
                 "custom_css_class": "",

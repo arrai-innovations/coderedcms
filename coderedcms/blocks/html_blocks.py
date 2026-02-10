@@ -334,7 +334,7 @@ class QuoteBlock(BaseBlock):
         template = "coderedcms/blocks/quote_block.html"
         icon = "openquote"
         label = _("Quote")
-        description = "A Quote."
+        description = "A Quote, that can optionally have an author."
         preview_value = {
             "author": "John Smith",
             "settings": {
