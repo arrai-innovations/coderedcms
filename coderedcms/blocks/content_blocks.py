@@ -67,6 +67,20 @@ class CardBlock(BaseBlock):
         template = "coderedcms/blocks/card_foot.html"
         icon = "cr-list-alt"
         label = _("Card")
+        description = "A card that can link to a page, document, or url. It can optionally contain an image."
+        preview_value = {
+            "description": "Card Description",
+            "links": [
+                {
+                    "button_title": "Button Title Tag",
+                    "url": "https://www.google.ca",
+                    "opens_in_new_window": True,
+                    "get_title": "Button Title",
+                },
+            ],
+            "subtitle": "Card Sub Title",
+            "title": "Card Title",
+        }
 
 
 class CarouselBlock(BaseBlock):
@@ -80,7 +94,30 @@ class CarouselBlock(BaseBlock):
         icon = "image"
         label = _("Carousel")
         template = "coderedcms/blocks/carousel_block.html"
-
+        description = "A rotating image carousel."
+        preview_value = {
+            "carousel": {
+                "carousel_slides": {
+                    "all": [
+                        {
+                            "background_color": "#600",
+                            "content": [],
+                        },
+                        {
+                            "background_color": "#060",
+                            "content": [],
+                        },
+                        {
+                            "background_color": "#006",
+                            "content": [],
+                        },
+                    ],
+                },
+                "id": "0",
+                "show_controls": True,
+                "show_indicators": True,
+            },
+        }
 
 class FilmStripBlock(BaseBlock):
     """
@@ -343,6 +380,12 @@ class ReusableContentBlock(BaseBlock):
         icon = "cr-recycle"
         label = _("Reusable Content")
         template = "coderedcms/blocks/reusable_content_block.html"
+        description = "A reusable content block that can be added to any page."
+        preview_value = {
+            "content": {
+                "content": [],
+            },
+        }
 
     def clean(self, value):
         # No reusable content selected.

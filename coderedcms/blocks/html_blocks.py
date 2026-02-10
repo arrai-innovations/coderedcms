@@ -37,7 +37,13 @@ class ButtonBlock(ButtonMixin, BaseLinkBlock):
         icon = "cr-hand-pointer-o"
         label = _("Button Link")
         value_class = LinkStructValue
-
+        description = "A reusable content block that can be added to any page."
+        preview_value = {
+            "button_title": "Button Title Tag",
+            "url": "https://www.google.ca",
+            "opens_in_new_window": True,
+            "get_title": "Button Title",
+        }
 
 class DownloadBlock(ButtonMixin, BaseBlock):
     """
@@ -172,6 +178,16 @@ class TableBlock(BaseBlock):
         template = "coderedcms/blocks/table_block.html"
         icon = "table"
         label = "Table"
+        description = "A Table."
+        preview_value = {
+            "table": {
+                "first_row_is_table_header": True,
+                "data": [
+                    ["A", "B", "C"],
+                    ["1", "2", "3"],
+                ],
+            }
+        }
 
 
 class ImageBlock(BaseBlock):
@@ -187,6 +203,7 @@ class ImageBlock(BaseBlock):
         template = "coderedcms/blocks/image_block.html"
         icon = "image"
         label = _("Image")
+        description = "An Image."
 
 
 class ImageLinkBlock(BaseLinkBlock):
@@ -208,6 +225,7 @@ class ImageLinkBlock(BaseLinkBlock):
         icon = "image"
         label = _("Image Link")
         value_class = LinkStructValue
+        description = "An Image that links to a page, document, or url."
 
 
 class PageListBlock(BaseBlock):
@@ -308,6 +326,11 @@ class QuoteBlock(BaseBlock):
         template = "coderedcms/blocks/quote_block.html"
         icon = "openquote"
         label = _("Quote")
+        description = "A Quote."
+        preview_value = {
+            "author": "John Smith",
+            "text": "The sun rises in the east.",
+        }
 
 
 class RichTextBlock(blocks.RichTextBlock):
