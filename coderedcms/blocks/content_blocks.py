@@ -78,6 +78,10 @@ class CardBlock(BaseBlock):
                     "get_title": "Button Title",
                 },
             ],
+            "settings": {
+                "custom_css_class": "",
+                "custom_template": "",
+            },
             "subtitle": "Card Sub Title",
             "title": "Card Title",
         }
@@ -116,6 +120,10 @@ class CarouselBlock(BaseBlock):
                 "id": "0",
                 "show_controls": True,
                 "show_indicators": True,
+            },
+            "settings": {
+                "custom_css_class": "",
+                "custom_template": "",
             },
         }
 
@@ -384,6 +392,10 @@ class ReusableContentBlock(BaseBlock):
         preview_value = {
             "content": {
                 "content": [],
+            },
+            "settings": {
+                "custom_css_class": "",
+                "custom_template": "",
             },
         }
 

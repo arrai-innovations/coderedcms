@@ -40,9 +40,13 @@ class ButtonBlock(ButtonMixin, BaseLinkBlock):
         description = "A reusable content block that can be added to any page."
         preview_value = {
             "button_title": "Button Title Tag",
-            "url": "https://www.google.ca",
-            "opens_in_new_window": True,
             "get_title": "Button Title",
+            "opens_in_new_window": True,
+            "url": "https://www.google.ca",
+            "settings": {
+                "custom_css_class": "",
+                "custom_template": "",
+            },
         }
 
 class DownloadBlock(ButtonMixin, BaseBlock):
@@ -180,12 +184,16 @@ class TableBlock(BaseBlock):
         label = "Table"
         description = "A Table."
         preview_value = {
+            "settings": {
+                "custom_css_class": "",
+                "custom_template": "",
+            },
             "table": {
-                "first_row_is_table_header": True,
                 "data": [
                     ["A", "B", "C"],
                     ["1", "2", "3"],
                 ],
+                "first_row_is_table_header": True,
             }
         }
 
@@ -331,6 +339,7 @@ class QuoteBlock(BaseBlock):
             "author": "John Smith",
             "settings": {
                 "custom_css_class": "",
+                "custom_template": "",
             },
             "text": "The sun rises in the east.",
         }
